@@ -4,3 +4,11 @@
 prime-numbers-server/target/
 
 .idea/
+
+common/target/
+
+project/project/
+
+project/target/
+
+target/

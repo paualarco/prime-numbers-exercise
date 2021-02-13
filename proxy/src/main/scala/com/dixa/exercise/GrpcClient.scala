@@ -1,7 +1,9 @@
 package com.dixa.exercise
 
+import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.grpc.GrpcClientSettings
+import akka.stream.scaladsl.Source
 import com.typesafe.scalalogging.LazyLogging
 
 class GrpcClient(implicit config: ProxyConfig, actorSystem: ActorSystem) extends LazyLogging { self =>
@@ -12,7 +14,7 @@ class GrpcClient(implicit config: ProxyConfig, actorSystem: ActorSystem) extends
 
   val client: PrimeProtocol = PrimeProtocolClient(clientSettings)
 
-  def sendPrimeRequest(limit: Int): Unit = {
+  def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] = {
     client.requestPrimeNumbers(new PrimeNumbersRequest(limit))
   }
 }

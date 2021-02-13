@@ -7,7 +7,8 @@ object Dependencies {
     val Monix = "3.3.0"
     val MonixConnect = "0.5.2"
     val Circe = "0.12.3"
-    val Akka = "2.6.12"
+    val Akka = "2.6.1"
+    val AkkaHttp = "10.2.3"
 
     val Log4jScala = "11.0"
     val Log4j = "2.10.0"
@@ -23,10 +24,9 @@ object Dependencies {
   ).map(_ % Test)
 
   val ProxyDependencies: Seq[ModuleID] = Seq(
+    "com.typesafe.akka" %% "akka-http-spray-json" % DependencyVersions.AkkaHttp,
+    "com.typesafe.akka" %% "akka-http" % DependencyVersions.AkkaHttp,
     "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
-    "io.circe" %% "circe-core" % DependencyVersions.Circe,
-    "io.circe" %% "circe-generic" % DependencyVersions.Circe,
-    "io.circe" %% "circe-parser" % DependencyVersions.Circe,
     "com.typesafe.scala-logging" %% "scala-logging" % DependencyVersions.ScalaLogging,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig
@@ -37,7 +37,6 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
     "com.typesafe.scala-logging" %% "scala-logging" % DependencyVersions.ScalaLogging,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
-
     "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig
   ) ++ TestDependencies
 

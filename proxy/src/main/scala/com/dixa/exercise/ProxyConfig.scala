@@ -1,22 +1,13 @@
 package com.dixa.exercise
 
-import ProxyConfig.{GrpcServerConfiguration, HttpServerConfiguration, ServerConfiguration}
+import ProxyConfig.ServerConfiguration
 
-import java.time.format.DateTimeFormatter.ISO_DATE
 import scala.concurrent.duration.FiniteDuration
-import ProxyConfig.{GrpcServerConfiguration, HttpServerConfiguration}
-import io.circe._
-import io.circe.generic.auto._
-import io.circe.generic.semiauto._
-import io.circe.syntax._
 import pureconfig._
-import pureconfig.configurable.localDateConfigConvert
 import pureconfig.generic.ProductHint
 import pureconfig.generic.auto._
 
-case class ProxyConfig(httpServer: ServerConfiguration, grpcTimeout: FiniteDuration, grpcServer: ServerConfiguration) {
-  def toJson: String = this.asJson.noSpaces
-}
+case class ProxyConfig(httpServer: ServerConfiguration, grpcTimeout: FiniteDuration, grpcServer: ServerConfiguration)
 
 object ProxyConfig {
 
