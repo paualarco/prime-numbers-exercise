@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.dixa.exercise;
+
+service PrimeProtocol {
+  //server streaming call
+  rpc requestPrimeNumbers (PrimeNumbersRequest) returns (stream PrimeNumbersResponse) {}
+}
+
+message PrimeNumbersRequest {
+  int32 limit = 1;
+}
+
+message PrimeNumbersResponse {
+  int32 primeNumber = 1;
+}
+
