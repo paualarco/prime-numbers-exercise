@@ -2,3 +2,5 @@
 *.log
 
 prime-numbers-server/target/
+
+.idea/
