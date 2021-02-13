@@ -14,8 +14,9 @@ object PrimeNumServerConfig {
 
   def load(): PrimeNumServerConfig = loadConfigOrThrow[PrimeNumServerConfig]
 
-  case class ServerConfiguration(host: String,
-                                 port: Int,
-                                 endPoint: String)
+  case class ServerConfiguration(
+    host: String,
+    port: Int,
+    endPoint: String)
 
 }

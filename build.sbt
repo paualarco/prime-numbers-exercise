@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
 
 lazy val proxy = (project in file("proxy"))
   .settings(
-    name := "dispatcher",
+    name := "proxy",
     libraryDependencies ++= ProxyDependencies,
     version := "0.1.0",
     maintainer in Docker := "Pau Alarcón",
@@ -25,7 +25,7 @@ lazy val proxy = (project in file("proxy"))
   .dependsOn(common)
   .aggregate(common)
 
-lazy val primeNumbersProvider = (project in file("prime-numbers-server"))
+lazy val primeNumbersServer = (project in file("prime-numbers-server"))
   .settings(
     name := "primeNumbersServer",
     libraryDependencies ++= PrimeNumbersProviderDependencies,
@@ -40,11 +40,17 @@ enablePlugins(AkkaGrpcPlugin)
 lazy val common = (project in file("common"))
   .settings(
     name := "common",
-    libraryDependencies ++= CommonDependencies,
-   // Compile / PB.protoSources := Seq(new File("src/main/protobuf")),
-    version := "0.0.1",
-    //PB.protoSources.in(Compile) := Seq(sourceDirectory.value / "src" / "main" / "proto") ,
+    version := "0.1.0",
     akkaGrpcGeneratedLanguages := Seq(AkkaGrpc.Scala),
     Compile / PB.protoSources ++= (Compile / PB.protoSources).value
 
 ).enablePlugins(AkkaGrpcPlugin)
+
+lazy val integrationTests = (project in file("integration-tests"))
+  .settings(
+    name := "integrationTests",
+    libraryDependencies ++= PrimeNumbersProviderDependencies,
+    version := "0.1.0",
+  )
+  .enablePlugins(DockerPlugin, JavaAppPackaging)
+  .dependsOn(common)

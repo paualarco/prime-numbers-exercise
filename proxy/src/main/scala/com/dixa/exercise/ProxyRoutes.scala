@@ -1,7 +1,7 @@
 package com.dixa.exercise
 
 import com.typesafe.scalalogging.LazyLogging
-import akka.http.scaladsl.model.{HttpEntity, _}
+import akka.http.scaladsl.model.{ HttpEntity, _ }
 import akka.stream.scaladsl.Source
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server._
@@ -31,7 +31,8 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
     handleExceptions(grpcExceptionHandler) {
       concat(
         pathSingleSlash {
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`,
+          complete(HttpEntity(
+            ContentTypes.`text/html(UTF-8)`,
             s"""<h3>Welcome to the Prime numbers provider!</h3>
                 <h3>In order to start, just pass a number to
                 the path <a href=\"${proxyConfig.httpServer.endPoint}/prime/2\">/prime/n</a>
@@ -50,7 +51,8 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         },
         pathPrefix("prime" / Remaining) { _ =>
           logger.info(s"Received wrong request, returning ${StatusCodes.NotFound}")
-          complete(StatusCodes.BadRequest, HttpEntity(ContentTypes.`text/html(UTF-8)`,
+          complete(StatusCodes.BadRequest, HttpEntity(
+            ContentTypes.`text/html(UTF-8)`,
             "<h4>Bad request, please the prime number limit must be of type Integer.</h4>"))
         },
         pathPrefix(Remaining) { _ =>
@@ -58,8 +60,7 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
           val message =
             s"""<h4>Resource not found, redirect to <a href=\"${proxyConfig.httpServer.endPoint}/prime/2\">/prime/{n}</a></h4>""".stripMargin
           complete(StatusCodes.NotFound, (HttpEntity(ContentTypes.`text/html(UTF-8)`, message)))
-        }
-      )
+        })
     }
 
 }

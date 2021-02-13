@@ -18,11 +18,6 @@ object Dependencies {
     val Scalacheck = "1.13.5"
   }
 
-  private val TestDependencies = Seq(
-    "org.scalatest" %% "scalatest" % DependencyVersions.Scalatest
-   // "org.scalacheck" %% "scalacheck" % DependencyVersions.Scalacheck
-  ).map(_ % Test)
-
   val ProxyDependencies: Seq[ModuleID] = Seq(
     "com.typesafe.akka" %% "akka-http-spray-json" % DependencyVersions.AkkaHttp,
     "com.typesafe.akka" %% "akka-http" % DependencyVersions.AkkaHttp,
@@ -31,18 +26,27 @@ object Dependencies {
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig,
     "com.typesafe.akka" %% "akka-stream-testkit" % DependencyVersions.Akka % Test,
-    "com.typesafe.akka" %% "akka-http-testkit" % DependencyVersions.AkkaHttp % Test
-  ) ++ TestDependencies
+    "com.typesafe.akka" %% "akka-http-testkit" % DependencyVersions.AkkaHttp % Test,
+    "org.scalatest" %% "scalatest" % DependencyVersions.Scalatest % Test
+  )
 
   val PrimeNumbersProviderDependencies: Seq[ModuleID] = Seq(
     "io.monix" %% "monix" % "3.3.0",
     "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
     "com.typesafe.scala-logging" %% "scala-logging" % DependencyVersions.ScalaLogging,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
-    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig
-  ) ++ TestDependencies
+    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig,
+    "org.scalatest" %% "scalatest" % DependencyVersions.Scalatest % Test
+  )
 
-  val CommonDependencies: Seq[ModuleID] = Seq(
+  val IntegrationTests: Seq[ModuleID] = Seq(
+    "com.typesafe.akka" %% "akka-http-spray-json" % DependencyVersions.AkkaHttp,
+    "com.typesafe.akka" %% "akka-http" % DependencyVersions.AkkaHttp,
+    "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
+    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig,
+    "com.typesafe.akka" %% "akka-stream-testkit" % DependencyVersions.Akka % Test,
+    "com.typesafe.akka" %% "akka-http-testkit" % DependencyVersions.AkkaHttp % Test,
+    "org.scalatest" %% "scalatest" % DependencyVersions.Scalatest % Test
   )
 
 }

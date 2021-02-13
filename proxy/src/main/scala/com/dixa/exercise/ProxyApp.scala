@@ -5,7 +5,8 @@ import com.typesafe.scalalogging.LazyLogging
 import akka.http.scaladsl.Http
 import com.dixa.exercise.ProxyConfig.ServerConfiguration
 
-import scala.util.{Failure, Success}
+import scala.concurrent.{ Await, Future }
+import scala.concurrent.duration._
 
 object ProxyApp extends App with ProxyRoutes with LazyLogging {
 
@@ -16,6 +17,19 @@ object ProxyApp extends App with ProxyRoutes with LazyLogging {
 
   val ServerConfiguration(host, port, _) = proxyConfig.httpServer
 
-  Http().newServerAt(host, port).bind(primeNumberRoute)
+  val binding = Http().newServerAt(host, port).bind(primeNumberRoute)
+  // once ready to terminate the server, invoke terminate:
+  val onceAllConnectionsTerminated: Future[Http.HttpTerminated] =
+    Await.result(binding, 10.seconds)
+      .terminate(hardDeadline = 3.seconds)
+
   println(s"Starting server at ${proxyConfig.httpServer.endPoint}...")
+
+  scala.sys.addShutdownHook {
+    logger.info("Terminating...")
+    actorSystem.terminate()
+    Await.result(actorSystem.whenTerminated, 10.seconds)
+    logger.info("Terminated actor system.")
+  }
+
 }
