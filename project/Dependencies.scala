@@ -7,7 +7,7 @@ object Dependencies {
     val Monix = "3.3.0"
     val MonixConnect = "0.5.2"
     val Circe = "0.12.3"
-    val Akka = "2.6.1"
+    val Akka = "2.6.9"
     val AkkaHttp = "10.2.3"
 
     val Log4jScala = "11.0"
@@ -29,8 +29,10 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
     "com.typesafe.scala-logging" %% "scala-logging" % DependencyVersions.ScalaLogging,
     "ch.qos.logback" % "logback-classic" % "1.2.3",
-    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig
-  )
+    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig,
+    "com.typesafe.akka" %% "akka-stream-testkit" % DependencyVersions.Akka % Test,
+    "com.typesafe.akka" %% "akka-http-testkit" % DependencyVersions.AkkaHttp % Test
+  ) ++ TestDependencies
 
   val PrimeNumbersProviderDependencies: Seq[ModuleID] = Seq(
     "io.monix" %% "monix" % "3.3.0",

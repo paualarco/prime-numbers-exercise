@@ -11,6 +11,7 @@ import monix.execution.Scheduler.Implicits.global
 import scala.concurrent.{ ExecutionContext, Future }
 
 class GrpcServer(actorSystem: ActorSystem) extends LazyLogging {
+
   def run(): Future[Http.ServerBinding] = {
     // Akka boot up code
     implicit val sys: ActorSystem = actorSystem

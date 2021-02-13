@@ -18,17 +18,17 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
   //    Marshalling.WithFixedContentType(ContentTypes.`text/html(UTF-8)`, () => ByteString.fromString(t.toString))
   //  }
 
-  implicit def myExceptionHandler: ExceptionHandler =
+  implicit def grpcExceptionHandler: ExceptionHandler =
     ExceptionHandler {
       case _: Exception =>
         extractUri { uri =>
           println(s"A request to $uri failed unexpectedly.")
-          complete(HttpResponse(InternalServerError, entity = "Unexpected error."))
+          complete(StatusCodes.InternalServerError, "Unexpected error.")
         }
     }
 
   val primeNumberRoute =
-    handleExceptions(myExceptionHandler) {
+    handleExceptions(grpcExceptionHandler) {
       concat(
         pathSingleSlash {
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`,
@@ -44,8 +44,8 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         },
         path("prime" / IntNumber) { limit =>
           get {
-            logger.info("received prime json request")
-            complete(Source.fromIterator(() => List(PrimeNumber(1), PrimeNumber(2)).iterator))
+            println(s"Received prime numbers list request with limit of ${limit}")
+            complete(grpcClient.sendPrimeRequest(limit).map(resp => PrimeNumber(resp.primeNumber)))
           }
         },
         pathPrefix("prime" / Remaining) { _ =>
@@ -55,7 +55,9 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         },
         pathPrefix(Remaining) { _ =>
           logger.info(s"Received wrong request, returning ${StatusCodes.NotFound}")
-          complete(StatusCodes.NotFound, (HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h4>Resource not found, redirect to <a href=\"http://localhost:8081/prime/2\">/prime/{n}</a></h4>")))
+          val message =
+            s"""<h4>Resource not found, redirect to <a href=\"${proxyConfig.httpServer.endPoint}/prime/2\">/prime/{n}</a></h4>""".stripMargin
+          complete(StatusCodes.NotFound, (HttpEntity(ContentTypes.`text/html(UTF-8)`, message)))
         }
       )
     }
