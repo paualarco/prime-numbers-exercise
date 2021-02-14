@@ -13,9 +13,9 @@ object ProxyApp extends App with ProxyRoutes with LazyLogging {
   implicit val actorSystem = ActorSystem("proxyApp")
   implicit val proxyConfig: ProxyConfig = ProxyConfig.load()
 
-  val grpcClient: GrpcClient = new PrimesProtocolGrpcClient()
+  protected val grpcClient: GrpcClient = new PrimesProtocolGrpcClient()
 
-  val ServerConfiguration(host, port, _) = proxyConfig.httpServer
+  private[this] val ServerConfiguration(host, port, _) = proxyConfig.httpServer
 
   val binding = Http().newServerAt(host, port).bind(primeNumberRoute)
   // once ready to terminate the server, invoke terminate:

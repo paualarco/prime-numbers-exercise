@@ -18,9 +18,9 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   }
 
   it should "return a list of prime numbers" in new ProxyRoutesFixture {
-    Get("/prime/3") ~> primeNumberRoute ~> check {
+    Get("/prime/10") ~> primeNumberRoute ~> check {
       status shouldEqual StatusCodes.OK
-      responseAs[String] shouldEqual "[{\"n\":2},{\"n\":3}]"
+      responseAs[String] shouldEqual "[2, 3, 5, 7, 11]"
     }
   }
 
@@ -37,7 +37,7 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
     }
   }
 
-  //todo
+  //todo figure out how to parse source streaming failures to http status codes
   //it should "handle exceptions nicely" in new ProxyRoutesFixture {
   //  override val grpcClient: GrpcClient = new GrpcClient {
   //    override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
@@ -53,7 +53,7 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
     val proxyConfig: ProxyConfig = ProxyConfig.load()
     val grpcClient: GrpcClient = new GrpcClient {
       override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
-        Source.fromIterator(() => List(PrimeNumbersResponse(2), PrimeNumbersResponse(3)).iterator)
+        Source.fromIterator(() => List(2, 3, 5, 7, 11).map(PrimeNumbersResponse(_)).iterator)
     }
   }
 

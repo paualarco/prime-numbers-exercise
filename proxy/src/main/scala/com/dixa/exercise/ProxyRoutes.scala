@@ -4,14 +4,16 @@ import com.typesafe.scalalogging.LazyLogging
 import akka.http.scaladsl.model.{HttpEntity, _}
 import akka.http.scaladsl.server._
 import Directives._
+import akka.http.scaladsl.common.EntityStreamingSupport
+import akka.http.scaladsl.marshalling.{Marshaller, ToEntityMarshaller}
 
-trait ProxyRoutes extends PrimeNumStreamingSupport {
+trait ProxyRoutes { //extends PrimeNumStreamingSupport {
   this: LazyLogging =>
 
   val proxyConfig: ProxyConfig
   val grpcClient: GrpcClient
 
-  implicit def grpcExceptionHandler: ExceptionHandler =
+  private[this] implicit def grpcExceptionHandler: ExceptionHandler =
     ExceptionHandler {
       case _: Exception =>
         extractUri { uri =>
@@ -19,6 +21,13 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
           complete(StatusCodes.InternalServerError, "Unexpected error.")
         }
     }
+
+  private[this] implicit val marshaller: ToEntityMarshaller[PrimeNumbersResponse] =
+    Marshaller.oneOf(Marshaller.withFixedContentType(ContentTypes.`text/plain(UTF-8)`) { primeNumbersResponse ⇒
+      HttpEntity.apply(primeNumbersResponse.primeNumber.toString)
+    })
+
+  private[this] implicit val streamingSupport = new PrimeNumbersResponseStreamingSupport()
 
   val primeNumberRoute =
     concat(
@@ -36,7 +45,7 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         path("prime" / IntNumber) { limit =>
           get {
             logger.info(s"Received prime numbers list request with limit of ${limit}")
-            complete(grpcClient.sendPrimeRequest(limit).map(resp => PrimeNumber(resp.primeNumber)))
+            complete(grpcClient.sendPrimeRequest(limit))
           }
         }
       },

@@ -38,12 +38,6 @@ As described in previous section, there are unit tests defined on the two micros
 In addition, I have put all those steps in a [single shell script](ci-cd-pipeline.sh) so it can be executed all at once, nevertheless, 
 the script is also running on the [ci pipeline with github actions](https://github.com/paualarco/prime-numbers-exercise/actions).
 
-### Future improvements 
-- As main improvement would be that the `Proxy` does a _Marshalling_ from `PrimeRequestResponses` streaming as `ByteString`, instead of 
-returning them as _json_, which will avoid repeating the json structure and also improve on performance (network latency and serialization). 
- Providing that improvement would require creating my own *StreamingSupport* class that will extend from 
-  [EntityStreamingSupport](https://doc.akka.io/api/akka-http/10.2.3/akka/http/scaladsl/common/EntityStreamingSupport.html)
-  
+### Future improvements
 - Improve unit tests with property based testing.
-
 - Create a proper UI.

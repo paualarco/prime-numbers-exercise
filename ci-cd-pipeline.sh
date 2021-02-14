@@ -3,10 +3,10 @@ echo "Checking scala format."
 sbt scalafmtCheckAll
 
 echo "Runs unit tests for proxy"
-#sbt proxy/test
+sbt proxy/test
 
 echo "Running unit tests for prime numbers server"
-#sbt primeNumbersServer/test
+sbt primeNumbersServer/test
 
 echo "Building docker images."
 sbt 'primeNumbersServer/docker:publishLocal'

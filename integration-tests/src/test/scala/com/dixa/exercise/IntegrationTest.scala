@@ -30,13 +30,13 @@ class IntegrationTest extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   "A Get '/prime/10'" should "return all its prime numbers" in {
     //given
     val get = Get(s"$httpEndpoint/prime/18")
-    val expectedPrimeNumbers = """{"n":2},{"n":3},{"n":5},{"n":7},{"n":11},{"n":13},{"n":17}""".stripMargin
+    val expectedPrimeNumbers = """2, 3, 5, 7, 11, 13, 17""".stripMargin
     val foldSink = Sink.fold[String, String]("")((left, right) => left ++ parse(right))
 
     //when/then
     val result = httpClient.singleRequest(get).futureValue
     result.status shouldBe StatusCodes.OK
-    result.entity.contentType shouldBe ContentTypes.`application/json`
+    result.entity.contentType shouldBe ContentTypes.`text/plain(UTF-8)`
     result.entity.dataBytes
       .map(_.utf8String)
       .runWith(foldSink)
