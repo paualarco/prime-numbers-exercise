@@ -1,5 +1,7 @@
 # Scala Exercise
 
+![build](https://github.com/paualarco/prime-numbers-exercise/workflows/build/badge.svg)
+
 Hi there! Welcome to my implementation of the `Prime Numbers` scala exercise! 
 
 
