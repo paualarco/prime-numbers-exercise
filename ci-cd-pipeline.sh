@@ -1,18 +1,20 @@
 
-# checks that the formatting is correct
+echo "Checking scala format correctness."
 sbt scalafmtCheckAll
 
-# runs unit tests for proxy
+echo "Runs unit tests for proxy"
 sbt proxy/test
 
-# runs unit tests for prime numbers server
+echo "Running unit tests for prime numbers server"
 sbt primeNumbersServer/test
 
-# Builds docker images
+echo "Building docker images."
 sbt 'primeNumbersServer/docker:publishLocal'
 sbt 'proxy/docker:publishLocal'
-# Spin up docker services
+
+echo "Spinning up docker services."
 docker-compose -f ./docker-compose.yml up -d proxy prime-numbers-server
-# Runs integration tests
-sleep 5
+
+echo "Running integration tests..."
+sleep 15
 sbt 'integrationTests/test'
