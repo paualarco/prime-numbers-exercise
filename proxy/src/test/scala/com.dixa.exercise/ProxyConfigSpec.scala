@@ -14,4 +14,5 @@ class ProxyConfigSpec extends AnyFlatSpec with Matchers {
     primeNumConf.httpServer shouldBe ServerConfiguration("localhost", 8080, "http://localhost:8080")
     primeNumConf.grpcServer shouldBe ServerConfiguration("localhost", 9090, "http://localhost:9090")
   }
+
 }

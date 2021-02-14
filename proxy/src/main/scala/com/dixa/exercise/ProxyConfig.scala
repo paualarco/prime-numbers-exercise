@@ -2,7 +2,6 @@ package com.dixa.exercise
 
 import ProxyConfig.ServerConfiguration
 
-import scala.concurrent.duration.FiniteDuration
 import pureconfig._
 import pureconfig.generic.ProductHint
 import pureconfig.generic.auto._

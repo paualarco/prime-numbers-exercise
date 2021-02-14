@@ -11,13 +11,13 @@ some _instructions_ to execute and test locally and finally a list of _future im
 
 Initially, I was planning to use _ScalaPb_, _Monix_ for grpc communication between the two microservices, and _http4s_ for the Proxy's _REST API_.
 Then I realized that the exercise required to be designed in a streaming request fashion on the server side, 
-since this way we ensure a good performance of the application in cases where for example the request for prime numbers has to an extensive list.
-Therefore, I found an example of a _streaming http response_ in the _akka_ documentation that which would 
-fit to very well to the use case, so I ended up using **akka-http**, **akka-grpc** and **akka-streams*.
+since this way we ensure a good performance of the application in cases where for example the request for prime numbers has to return an extensive list.
+Therefore, I found an example of a _streaming http response_ in the _akka_ documentation which would 
+fit very well to the use case, so I ended up using **akka-http**, **akka-grpc** and **akka-streams*.
 
 ### Project structure and implementation 
 
-The project structure has been internally divided in 4 different submodules:
+The project structure has been internally divided in **4** different **sbt submodules**:
 
 - **Proxy**: The microservices that implements a minimal REST API that exposes a **Get /prime/{n}** that returns all the list of subsequent prime numbers.
   The _http_ port as well as the grpc endpoint for requesting the prime numbers are configurable from the _HOCOON_ [application.conf](/proxy/src/main/resources/application.conf).

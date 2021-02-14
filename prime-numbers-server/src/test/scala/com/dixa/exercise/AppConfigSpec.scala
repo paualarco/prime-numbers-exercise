@@ -1,6 +1,5 @@
 package com.dixa.exercise
 
-import com.dixa.exercise.AppConfig.ServerConfiguration
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
