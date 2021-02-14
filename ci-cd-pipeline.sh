@@ -15,6 +15,13 @@ sbt 'proxy/docker:publishLocal'
 echo "Spinning up docker services."
 docker-compose -f ./docker-compose.yml up -d proxy prime-numbers-server
 
+sleep 20
+
+echo "Proxy docker container logs:"
+docker logs proxy
+
+echo "Prime numbers docker container logs:"
+docker logs prime-numbers-server
+
 echo "Running integration tests..."
-sleep 15
 sbt 'integrationTests/test'

@@ -44,7 +44,7 @@ class IntegrationTest extends AnyFlatSpec with ScalatestRouteTest with Matchers 
     //when
     val f = httpClient.singleRequest(get)
 
-    val result = Await.result(f, 5.seconds)
+    val result = Await.result(f, 10.seconds)
     result.status shouldBe StatusCodes.BadRequest
   }
 

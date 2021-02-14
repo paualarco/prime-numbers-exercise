@@ -12,8 +12,7 @@ object PrimeNumProviderApp extends App with LazyLogging {
   val appConfig = AppConfig.load()
   val system = ActorSystem("PrimeNumbersProvider", conf)
 
-  logger.info(s"Scala logging is working!!")
-  println(s"Starting rime numbers server server...")
+  logger.info(s"Starting rime numbers server server...")
   new GrpcServer(system, appConfig).run()
 
 }

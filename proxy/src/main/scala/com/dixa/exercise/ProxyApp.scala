@@ -20,7 +20,7 @@ object ProxyApp extends App with ProxyRoutes with LazyLogging {
   val binding = Http().newServerAt(host, port).bind(primeNumberRoute)
   // once ready to terminate the server, invoke terminate:
 
-  println(s"Starting server at ${proxyConfig.httpServer.endPoint}...")
+  logger.info(s"Starting server at ${proxyConfig.httpServer.endPoint}...")
 
   scala.sys.addShutdownHook {
     logger.info("Terminating proxy...")

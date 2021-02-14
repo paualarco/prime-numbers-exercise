@@ -24,12 +24,12 @@ class GrpcServer(actorSystem: ActorSystem, appConfig: AppConfig) extends LazyLog
 
     val ServerConfiguration(host, port, _) = appConfig.grpcServer
     // Bind service handler
-    println(s"Binding grpc handler at ${appConfig.grpcServer.endPoint}")
+    logger.info(s"Binding grpc handler at ${appConfig.grpcServer.endPoint}")
 
     val binding = Http().newServerAt(host, port).bind(service)
 
     // report successful binding
-    binding.foreach { binding => println(s"gRPC server bound to: ${binding.localAddress}") }
+    binding.foreach { binding => logger.debug(s"gRPC server bound to: ${binding.localAddress}") }
     binding
   }
 

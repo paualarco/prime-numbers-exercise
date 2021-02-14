@@ -15,13 +15,13 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
     ExceptionHandler {
       case _: io.grpc.StatusRuntimeException => {
         extractUri { uri =>
-          println(s"A request to $uri failed unexpectedly.")
+          logger.error(s"A request to $uri failed unexpectedly.")
           complete(StatusCodes.InternalServerError, "Unexpected error.")
         }
       }
       case _: Exception =>
         extractUri { uri =>
-          println(s"A request to $uri failed unexpectedly.")
+          logger.error(s"A request to $uri failed unexpectedly.")
           complete(StatusCodes.InternalServerError, "Unexpected error.")
         }
     }
@@ -41,7 +41,7 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         },
         path("prime" / IntNumber) { limit =>
           get {
-            println(s"Received prime numbers list request with limit of ${limit}")
+            logger.info(s"Received prime numbers list request with limit of ${limit}")
             complete(grpcClient.sendPrimeRequest(limit).map(resp => PrimeNumber(resp.primeNumber)))
           }
         },
