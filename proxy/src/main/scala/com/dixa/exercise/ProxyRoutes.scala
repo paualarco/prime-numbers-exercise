@@ -6,20 +6,25 @@ import akka.stream.scaladsl.Source
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server._
 import Directives._
+import akka.actor.ActorSystem
 
 trait ProxyRoutes extends PrimeNumStreamingSupport {
   this: LazyLogging =>
 
   val proxyConfig: ProxyConfig
-
   val grpcClient: GrpcClient
   //implicit val primeNumbersMarshaller: Marshaller[Int, ByteString] =
   //  Marshaller.strict[Int, ByteString] { t =>
   //    Marshalling.WithFixedContentType(ContentTypes.`text/html(UTF-8)`, () => ByteString.fromString(t.toString))
   //  }
-
   implicit def grpcExceptionHandler: ExceptionHandler =
     ExceptionHandler {
+      case _: io.grpc.StatusRuntimeException => {
+        extractUri { uri =>
+          println(s"A request to $uri failed unexpectedly.")
+          complete(StatusCodes.InternalServerError, "Unexpected error.")
+        }
+      }
       case _: Exception =>
         extractUri { uri =>
           println(s"A request to $uri failed unexpectedly.")

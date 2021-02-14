@@ -7,7 +7,7 @@ import pureconfig._
 import pureconfig.generic.ProductHint
 import pureconfig.generic.auto._
 
-case class ProxyConfig(httpServer: ServerConfiguration, grpcTimeout: FiniteDuration, grpcServer: ServerConfiguration)
+case class ProxyConfig(httpServer: ServerConfiguration, grpcServer: ServerConfiguration)
 
 object ProxyConfig {
 

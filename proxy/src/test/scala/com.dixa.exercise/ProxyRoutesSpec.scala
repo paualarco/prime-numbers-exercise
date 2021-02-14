@@ -14,7 +14,7 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   "The Proxy" should "return a greeting for GET requests to the root path" in new ProxyRoutesFixture {
     Get() ~> primeNumberRoute ~> check {
       status shouldEqual StatusCodes.OK
-      responseAs[String] should startWith ("<h3>Welcome to the Prime numbers provider!")
+      responseAs[String] should startWith("<h3>Welcome to the Prime numbers provider!")
     }
   }
 
@@ -34,29 +34,31 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   it should "return status not found" in new ProxyRoutesFixture {
     Get("/incorrect/route") ~> primeNumberRoute ~> check {
       status shouldEqual StatusCodes.NotFound
-      responseAs[String] should startWith ("<h4>Resource not found")
+      responseAs[String] should startWith("<h4>Resource not found")
     }
   }
 
   //todo
- //it should "handle exceptions nicely" in new ProxyRoutesFixture {
- //  override val grpcClient: GrpcClient = new GrpcClient {
- //    override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
- //      Source.failed(new InternalError("Grpc server not yet initialised!"))
- //  }
+  //it should "handle exceptions nicely" in new ProxyRoutesFixture {
+  //  override val grpcClient: GrpcClient = new GrpcClient {
+  //    override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
+  //      Source.failed(new InternalError("Grpc server not yet initialised!"))
+  //  }
 
- //  Get("/prime/4") ~> primeNumberRoute ~> check {
- //    status shouldEqual StatusCodes.InternalServerError
- //  }
- //}
+  //  Get("/prime/4") ~> primeNumberRoute ~> check {
+  //    status shouldEqual StatusCodes.InternalServerError
+  //  }
+  //}
 
-}
-
-trait ProxyRoutesFixture extends LazyLogging with ProxyRoutes {
-  val proxyConfig: ProxyConfig = ProxyConfig.load()
-  val grpcClient: GrpcClient = new GrpcClient {
-    override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
-      Source.fromIterator(() => List(PrimeNumbersResponse(2), PrimeNumbersResponse(3)).iterator)
+  trait ProxyRoutesFixture extends LazyLogging with ProxyRoutes {
+    val proxyConfig: ProxyConfig = ProxyConfig.load()
+    val grpcClient: GrpcClient = new GrpcClient {
+      override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
+        Source.fromIterator(() => List(PrimeNumbersResponse(2), PrimeNumbersResponse(3)).iterator)
+    }
   }
+
 }
+
+
 
