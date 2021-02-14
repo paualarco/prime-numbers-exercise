@@ -14,5 +14,5 @@ sbt 'proxy/docker:publishLocal'
 # Spin up docker services
 docker-compose -f ./docker-compose.yml up -d proxy prime-numbers-server
 # Runs integration tests
-sleep(5)
+sleep 5
 sbt 'integrationTests/test'

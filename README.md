@@ -1,6 +1,6 @@
 # Scala Exercise
 
-![build](https://github.com/paualarco/prime-numbers-exercise/workflows/build/badge.svg)
+[![ci-cd](https://github.com/paualarco/prime-numbers-exercise/workflows/build/badge.svg)](https://github.com/paualarco/prime-numbers-exercise/actions)
 
 Hi there! Welcome to my implementation of the `Prime Numbers` scala exercise! 
 

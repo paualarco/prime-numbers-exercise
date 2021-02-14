@@ -10,8 +10,9 @@ class AppConfigSpec extends AnyFlatSpec with Matchers {
     //given / when
     val primeNumConf = AppConfig.load()
 
+    //then
     primeNumConf.grpcServer.host shouldBe "localhost"
     primeNumConf.grpcServer.port shouldBe 9090
-    primeNumConf.grpcServer shouldBe ServerConfiguration("localhost", 9090, "http://localhost:9090")
+    primeNumConf.grpcServer.endPoint shouldBe "http://localhost:9090"
   }
 }
