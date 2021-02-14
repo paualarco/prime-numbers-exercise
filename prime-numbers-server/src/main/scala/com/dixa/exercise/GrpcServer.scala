@@ -3,13 +3,13 @@ package com.dixa.exercise
 import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{ HttpRequest, HttpResponse }
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.stream.scaladsl.Source
 import com.dixa.exercise.AppConfig.ServerConfiguration
 import com.typesafe.scalalogging.LazyLogging
 import monix.execution.Scheduler.Implicits.global
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 class GrpcServer(actorSystem: ActorSystem, appConfig: AppConfig) extends LazyLogging {
 

@@ -2,7 +2,7 @@ package com.dixa.exercise
 
 import com.dixa.exercise.PrimeNumObservable.isPrime
 import monix.eval.Task
-import monix.execution.{ Ack, Cancelable }
+import monix.execution.{Ack, Cancelable}
 import monix.reactive.Observable
 import monix.reactive.observers.Subscriber
 
