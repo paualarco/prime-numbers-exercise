@@ -14,7 +14,8 @@ class PrimesProtocolGrpcClient(implicit proxyConfig: ProxyConfig, actorSystem: A
 
   val ServerConfiguration(grpcServerHost, grpcServerPort, _) = proxyConfig.grpcServer
 
-  private[this] val clientSettings = GrpcClientSettings.connectToServiceAt(grpcServerHost, grpcServerPort).withTls(false)
+  private[this] val clientSettings =
+    GrpcClientSettings.connectToServiceAt(grpcServerHost, grpcServerPort).withTls(false)
 
   private[this] val client: PrimeProtocol = PrimeProtocolClient(clientSettings)
 

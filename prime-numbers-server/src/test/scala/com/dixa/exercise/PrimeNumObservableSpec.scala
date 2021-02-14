@@ -7,16 +7,9 @@ import org.scalatest.matchers.should.Matchers
 
 class PrimeNumObservableSpec extends AnyFlatSpec with Matchers {
 
-
   it should "emit all prime numbers until the specified limit" in {
     //given
-    val expected = List(
-      2, 3, 5, 7, 11,
-      13, 17, 19, 23,
-      29, 31, 37, 41,
-      43, 47, 53, 59,
-      61, 67, 71, 73,
-      79, 83, 89, 97)
+    val expected = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
 
     //when
     val primes = PrimeNumObservable(100).toListL.runSyncUnsafe()
@@ -38,13 +31,7 @@ class PrimeNumObservableSpec extends AnyFlatSpec with Matchers {
 
   "isPrime" should "only return true on prime numbers" in {
     //given
-    val expected = List(
-      2, 3, 5, 7, 11,
-      13, 17, 19, 23,
-      29, 31, 37, 41,
-      43, 47, 53, 59,
-      61, 67, 71, 73,
-      79, 83, 89, 97)
+    val expected = List(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
 
     //when
     val primes = (1 to 100).filter(isPrime)

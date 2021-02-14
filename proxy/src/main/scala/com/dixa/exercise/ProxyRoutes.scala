@@ -36,9 +36,10 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
     handleExceptions(grpcExceptionHandler) {
       concat(
         pathSingleSlash {
-          complete(HttpEntity(
-            ContentTypes.`text/html(UTF-8)`,
-            s"""<h3>Welcome to the Prime numbers provider!</h3>
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              s"""<h3>Welcome to the Prime numbers provider!</h3>
                 <h3>In order to start, just pass a number to
                 the path <a href=\"${proxyConfig.httpServer.endPoint}/prime/2\">/prime/n</a>
                 and it will return all its prime numbers.</h3>"""))
@@ -56,9 +57,11 @@ trait ProxyRoutes extends PrimeNumStreamingSupport {
         },
         pathPrefix("prime" / Remaining) { _ =>
           logger.info(s"Received wrong request, returning ${StatusCodes.NotFound}")
-          complete(StatusCodes.BadRequest, HttpEntity(
-            ContentTypes.`text/html(UTF-8)`,
-            "<h4>Bad request, please the prime number limit must be of type Integer.</h4>"))
+          complete(
+            StatusCodes.BadRequest,
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              "<h4>Bad request, please the prime number limit must be of type Integer.</h4>"))
         },
         pathPrefix(Remaining) { _ =>
           logger.info(s"Received wrong request, returning ${StatusCodes.NotFound}")

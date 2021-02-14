@@ -35,10 +35,10 @@ class GrpcServer(actorSystem: ActorSystem, appConfig: AppConfig) extends LazyLog
 
   private class PrimeProtocolImpl extends PrimeProtocol {
     override def requestPrimeNumbers(in: PrimeNumbersRequest): Source[PrimeNumbersResponse, NotUsed] = {
-      Source.fromPublisher(PrimeNumObservable(in.limit).toReactivePublisher)
+      Source
+        .fromPublisher(PrimeNumObservable(in.limit).toReactivePublisher)
         .map(primeNumber => new PrimeNumbersResponse(primeNumber))
     }
   }
 
 }
-

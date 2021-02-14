@@ -8,7 +8,6 @@ import akka.stream.scaladsl.Source
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.matchers.should.Matchers
 
-
 class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers {
 
   "The Proxy" should "return a greeting for GET requests to the root path" in new ProxyRoutesFixture {
@@ -21,7 +20,7 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   it should "return a list of prime numbers" in new ProxyRoutesFixture {
     Get("/prime/3") ~> primeNumberRoute ~> check {
       status shouldEqual StatusCodes.OK
-      responseAs[String] shouldEqual "[{\"number\":2},{\"number\":3}]"
+      responseAs[String] shouldEqual "[{\"n\":2},{\"n\":3}]"
     }
   }
 
@@ -59,6 +58,3 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   }
 
 }
-
-
-

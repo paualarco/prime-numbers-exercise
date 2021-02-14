@@ -15,11 +15,10 @@ class PrimeNumObservable(limit: Int) extends Observable[Int] {
 
   def feedWithPrimeNumbers(sub: Subscriber[Int], current: Int = 2): Task[Unit] = {
     if (isPrime(current)) {
-      Task.deferFuture(sub.onNext(current))
-        .flatMap {
-          case Ack.Continue => feedWithPrimeNumbers(sub, current + 1)
-          case Ack.Stop => Task.unit
-        }
+      Task.deferFuture(sub.onNext(current)).flatMap {
+        case Ack.Continue => feedWithPrimeNumbers(sub, current + 1)
+        case Ack.Stop => Task.unit
+      }
     } else if (current < limit) feedWithPrimeNumbers(sub, current + 1)
     else Task.evalOnce(sub.onComplete())
   }

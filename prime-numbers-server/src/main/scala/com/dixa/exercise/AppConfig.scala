@@ -14,9 +14,6 @@ object AppConfig {
 
   def load(): AppConfig = loadConfigOrThrow[AppConfig]
 
-  case class ServerConfiguration(
-    host: String,
-    port: Int,
-    endPoint: String)
+  case class ServerConfiguration(host: String, port: Int, endPoint: String)
 
 }

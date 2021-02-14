@@ -15,10 +15,6 @@ object ProxyConfig {
 
   def load(): ProxyConfig = loadConfigOrThrow[ProxyConfig]
 
-  case class ServerConfiguration(
-    host: String,
-    port: Int,
-    endPoint: String)
+  case class ServerConfiguration(host: String, port: Int, endPoint: String)
 
 }
-

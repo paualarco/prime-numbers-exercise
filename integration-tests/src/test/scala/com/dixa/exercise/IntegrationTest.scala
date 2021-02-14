@@ -1,7 +1,7 @@
 package com.dixa.exercise
 
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, MediaTypes, StatusCodes}
+import akka.http.scaladsl.model.{ ContentTypes, HttpEntity, MediaTypes, StatusCodes }
 import org.scalatest.flatspec.AnyFlatSpec
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import akka.stream.scaladsl.Sink
@@ -14,16 +14,17 @@ import scala.concurrent.duration._
 class IntegrationTest extends AnyFlatSpec with ScalatestRouteTest with Matchers with ScalaFutures {
 
   val httpEndpoint = "http://localhost:8080"
-  private [this] val httpClient = Http()
+  private[this] val httpClient = Http()
 
-  val parse: String => String = (str: String) => str.replace("[","").replace("]", "")
+  val parse: String => String = (str: String) =>
+    str.replace("[", "").replace("]", "")
 
   "A Get '/prime/10'" should "return all its prime numbers" in {
-    val get = Get(s"$httpEndpoint/prime/20")
+    val get = Get(s"$httpEndpoint/prime/18")
 
     val expectedPrimeNumbers = """{"n":2},{"n":3},{"n":5},{"n":7},{"n":11},{"n":13},{"n":17}""".stripMargin
 
-    val foldSink = Sink.fold[String, String]("")( (left, right) => left ++ parse(right))
+    val foldSink = Sink.fold[String, String]("")((left, right) => left ++ parse(right))
 
     //when
     val f = httpClient.singleRequest(get)

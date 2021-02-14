@@ -40,10 +40,10 @@ object Dependencies {
   )
 
   val IntegrationTests: Seq[ModuleID] = Seq(
-    "com.typesafe.akka" %% "akka-http-spray-json" % DependencyVersions.AkkaHttp,
-    "com.typesafe.akka" %% "akka-http" % DependencyVersions.AkkaHttp,
-    "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka,
-    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig,
+    "com.typesafe.akka" %% "akka-http-spray-json" % DependencyVersions.AkkaHttp % Test,
+    "com.typesafe.akka" %% "akka-http" % DependencyVersions.AkkaHttp % Test,
+    "com.typesafe.akka" %% "akka-stream" % DependencyVersions.Akka % Test,
+    "com.github.pureconfig" %% "pureconfig" % DependencyVersions.PureConfig % Test,
     "com.typesafe.akka" %% "akka-stream-testkit" % DependencyVersions.Akka % Test,
     "com.typesafe.akka" %% "akka-http-testkit" % DependencyVersions.AkkaHttp % Test,
     "org.scalatest" %% "scalatest" % DependencyVersions.Scalatest % Test
