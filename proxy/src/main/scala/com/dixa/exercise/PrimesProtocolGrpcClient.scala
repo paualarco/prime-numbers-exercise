@@ -17,7 +17,7 @@ class PrimesProtocolGrpcClient(implicit proxyConfig: ProxyConfig, actorSystem: A
     GrpcClientSettings.connectToServiceAt(grpcServerHost, grpcServerPort).withTls(false)
   private[this] val client: PrimeProtocol = PrimeProtocolClient(clientSettings)
 
-  protected def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] = {
+  def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] = {
     client.requestPrimeNumbers(new PrimeNumbersRequest(limit))
   }
 }

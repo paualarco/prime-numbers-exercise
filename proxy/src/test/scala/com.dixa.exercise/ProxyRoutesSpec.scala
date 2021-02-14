@@ -50,8 +50,8 @@ class ProxyRoutesSpec extends AnyFlatSpec with ScalatestRouteTest with Matchers 
   //}
 
   trait ProxyRoutesFixture extends LazyLogging with ProxyRoutes {
-    val proxyConfig: ProxyConfig = ProxyConfig.load()
-    val grpcClient: GrpcClient = new GrpcClient {
+    implicit protected val proxyConfig: ProxyConfig = ProxyConfig.load()
+    protected val grpcClient: GrpcClient = new GrpcClient {
       override def sendPrimeRequest(limit: Int): Source[PrimeNumbersResponse, NotUsed] =
         Source.fromIterator(() => List(2, 3, 5, 7, 11).map(PrimeNumbersResponse(_)).iterator)
     }

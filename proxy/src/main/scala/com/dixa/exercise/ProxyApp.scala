@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 object ProxyApp extends App with ProxyRoutes with LazyLogging {
 
   implicit val actorSystem = ActorSystem("proxyApp")
-  implicit val proxyConfig: ProxyConfig = ProxyConfig.load()
+  implicit protected val proxyConfig: ProxyConfig = ProxyConfig.load()
 
   protected val grpcClient: GrpcClient = new PrimesProtocolGrpcClient()
 
