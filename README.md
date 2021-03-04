@@ -41,3 +41,4 @@ the script is also running on the [ci pipeline with github actions](https://gith
 ### Future improvements
 - Improve unit tests with property based testing.
 - Create a proper UI.
+- Include project subdomain in the package name.
