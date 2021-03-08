@@ -40,5 +40,6 @@ the script is also running on the [ci pipeline with github actions](https://gith
 
 ### Future improvements
 - Improve unit tests with property based testing.
-- Create a proper UI.
+- Add functional tests for the two microservices separately.
 - Include project subdomain in the package name.
+- Create a proper UI.
